@@ -16,4 +16,9 @@ class ProductVariant extends Model
         'quantity',
         'image',
     ];
+
+    public function color()
+    {
+        return $this->belongsTo(ProductColor::class);
+    }
 }

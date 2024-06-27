@@ -16,10 +16,10 @@ class CatalogueController extends Controller
      */
     public function index()
     {
-        $data = Catalogue::query()->latest('id')->paginate(5);
+        $data = Catalogue::query()->latest('id')->get();
         // dd($data);
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data'))->with('success', 'thao tác thành công');
     }
 
     /**
@@ -73,14 +73,25 @@ class CatalogueController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $model = Catalogue::query()->findOrFail($id);
+
         $data = $request->except('cover');
+
+        $data['is_active'] ??= 0;
 
         if ($request->hasFile('cover')) {
             $data['cover'] = Storage::put(self::PATH_UPLOAD, $request->file('cover'));
         }
 
-        $oldCover = Catalogue::query()->findOrFail($id)->cover;
+        $oldCover = $model->cover;
 
+        $model->update($data);
+
+        if ($oldCover && Storage::exists($oldCover)) {
+            Storage::delete($oldCover);
+        }
+
+        return back()->with('success', 'thao tác thành công');
 
     }
 
@@ -89,6 +100,14 @@ class CatalogueController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = Catalogue::query()->findOrFail($id);
+
+        $model->delete();
+
+        if ($model->cover && Storage::exists($model->cover)) {
+            Storage::delete($model->cover);
+        }
+
+        return back()->with('success', 'thao tác thành công');
     }
 }
