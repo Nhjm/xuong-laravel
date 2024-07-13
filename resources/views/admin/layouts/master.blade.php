@@ -9,13 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
+    {{-- sử dụng css cho ngrok --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('theme/admins/velzon/assets/images/favicon.ico') }}">
 
     @yield('style_libs')
 
     <!-- Layout config Js -->
-    <script src="{{ asset('theme/admins/velzon/assets/js/layout.js') }}"></script>
+    {{-- lỗi session flash --}}
+    {{-- <script src="{{ asset('theme/admins/velzon/assets/js/layout.js') }}"></script> --}}
     <!-- Bootstrap Css -->
     <link href="{{ asset('theme/admins/velzon/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -25,7 +28,6 @@
     <!-- custom Css-->
     <link href="{{ asset('theme/admins/velzon/assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
 
-    @yield('script_headers')
 </head>
 
 <body>

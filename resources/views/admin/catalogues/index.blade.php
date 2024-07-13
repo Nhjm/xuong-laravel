@@ -25,6 +25,17 @@
     </div>
     <!-- end page title -->
 
+    @session('error')
+        <div class="alert alert-danger" role="alert">
+            {{ session('error') }}
+        </div>
+    @endsession
+    @session('success')
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endsession
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -252,6 +263,7 @@
         </div>
     </div>
     <!--end modal -->
+    {{-- @dd(session()->all()) --}}
 @endsection
 
 @section('style_libs')

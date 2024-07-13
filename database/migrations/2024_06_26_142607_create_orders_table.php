@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->id();
             //xác định người dùng trên hệ thống
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(ProductVariant::class)->constrained();
             //thông tin nhận hàng
             $table->string('user_name');
             $table->string('user_email');

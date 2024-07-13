@@ -25,4 +25,5 @@ Route::prefix('admin')
             });
 
         Route::resource('products', ProductController::class);
+
     });

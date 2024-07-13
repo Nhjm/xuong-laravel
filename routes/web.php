@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Models\Product;
@@ -21,15 +23,22 @@ use App\Models\Product;
 Route::get('/', function () {
     $products = Product::query()->latest('id')->limit(4)->get();
     return view('welcome', compact('products'));
-});
+})->name('index');
 
 Route::get('product/{slug}', [ProductController::class, 'index'])->name('product');
 
-Route::get('admin', function () {
-    return 'admin';
-})->middleware(CheckAdminMiddleware::class);
+Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
 
-Auth::routes();
+Route::get('cart/index', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('order/add', [OrderController::class, 'add'])->name('order.add');
+
+
+// Route::get('admin', function () {
+//     return 'admin';
+// })->middleware(CheckAdminMiddleware::class);
+
+// Auth::routes();
+
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 

@@ -92,7 +92,7 @@
                                         @endif
                                     </td>
                                     <td data-ordering="false">{{ $item->sku }}</td>
-                                    <td >{{ $item->catalogue->name }}</td>
+                                    <td>{{ $item->catalogue->name }}</td>
                                     <td data-ordering="false">{{ $item->price_regular }}</td>
                                     <td data-ordering="false">{{ $item->price_sale }}</td>
                                     <td data-ordering="false">{{ $item->view }}</td>
@@ -128,7 +128,8 @@
                                                 <li><a href="#!" class="dropdown-item"><i
                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
                                                 </li>
-                                                <li><a class="dropdown-item edit-item-btn"><i
+                                                <li><a href="{{ route('admin.products.edit', $item) }}"
+                                                        class="dropdown-item edit-item-btn"><i
                                                             class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit</a></li>
                                                 <li>
@@ -164,6 +165,22 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
+
+    <style>
+        /* CSS cho cột "Name" */
+        .table td:nth-child(3),
+        .table th:nth-child(3) {
+            /* Thiết lập cho phép cột "Name" xuống dòng */
+            white-space: normal !important;
+            /* Cho phép xuống dòng */
+            word-wrap: break-word;
+            /* Tách từ khi vượt quá kích thước cột */
+            max-width: none !important;
+            /* Bỏ giới hạn chiều rộng */
+        }
+    </style>
 @endsection
 
 @section('script_libs')
@@ -182,5 +199,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
     <script src="{{ asset('theme/admins/velzon/assets/js/pages/datatables.init.js') }}"></script>
-@endsection
 
+    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+@endsection
