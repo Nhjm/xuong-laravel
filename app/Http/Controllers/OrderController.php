@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
@@ -17,12 +18,16 @@ class OrderController extends Controller
         try {
 
             DB::transaction(function () {
-                $user = User::query()->create([
-                    'name' => request('user_name'),
-                    'email' => request('user_email'),
-                    'password' => bcrypt(request('name')),
-                    'is_active' => false,
-                ]);
+                $user = User::where('email', request('user_email'))->first();
+
+                if (!$user) {
+                    $user = User::query()->create([
+                        'name' => request('user_name'),
+                        'email' => request('user_email'),
+                        'password' => bcrypt(request('name')),
+                        'is_active' => false,
+                    ]);
+                }
 
                 $order = Order::query()->create([
                     'user_id' => $user->id,
@@ -56,6 +61,8 @@ class OrderController extends Controller
                     // dd($item);
                     OrderItem::query()->create($item);
                 }
+
+                event(new OrderCreated($order));
 
             });
 
